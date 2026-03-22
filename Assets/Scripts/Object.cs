@@ -2,7 +2,7 @@ using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Object : Identity
+public class Objects : Identity
 {
 
     [Header("Object")]
@@ -12,7 +12,7 @@ public class Object : Identity
 
     [Header("Variable")]
     public int MaxHP;
-    public float MovementSpeed;
+    public float MaxMovementSpeed;
 
     [Header("Mirage")]
     public bool Mirage = false;
@@ -30,9 +30,25 @@ public class Object : Identity
             _collider = gameObject.AddComponent<CircleCollider2D>();
         }
 
+        _rb.gravityScale = 0;
+        _rb.freezeRotation = true;
+    }
+    public override void Start()
+    {
+        base.Start();
     }
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
+        if (Mirage)
+        {
+            Player playerScript = collision.GetComponent<Player>();
 
+            if (playerScript != null)
+            {
+                Debug.Log("Player flew into a Mirage! It vanished!");
+                Destroy(gameObject);
+                return;
+            }
+        }
     }
 }

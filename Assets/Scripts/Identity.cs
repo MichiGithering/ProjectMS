@@ -7,7 +7,7 @@ public class Identity : MonoBehaviour
         public int positionX;
         public int positionY;
 
-        public void Start()
+        public virtual void Start()
         {
             SetUp();
         }

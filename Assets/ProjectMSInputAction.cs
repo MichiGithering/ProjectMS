@@ -94,12 +94,12 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""PrimaryContact"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""b360d50e-209d-4208-a174-0e453822d48f"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""PrimaryPosition"",
@@ -135,6 +135,98 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""PlayerControl"",
+            ""id"": ""e2d7a932-56c6-4598-82b1-2a340b6a3ffc"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""d72b5230-b973-47e9-aed5-8601a3c28c30"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""LaunchMissile"",
+                    ""type"": ""Button"",
+                    ""id"": ""67437061-8655-4b9e-83ee-3fd2e3d58ffa"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""7dfb88eb-c31a-4c45-83fa-b61a36bb30ed"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""4a48db99-95a7-4c99-93bf-a6311fb86965"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""32ef3d44-8f1e-4995-9159-bf40949d9c2c"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""78450b3b-e898-43bd-9d52-4fd35900abd4"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""4256d627-fbc3-4ac9-a9d6-b16d136ee0b6"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0ab030f0-09ca-4d04-8387-91748d250719"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LaunchMissile"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -143,11 +235,16 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
         m_TouchControl = asset.FindActionMap("TouchControl", throwIfNotFound: true);
         m_TouchControl_PrimaryContact = m_TouchControl.FindAction("PrimaryContact", throwIfNotFound: true);
         m_TouchControl_PrimaryPosition = m_TouchControl.FindAction("PrimaryPosition", throwIfNotFound: true);
+        // PlayerControl
+        m_PlayerControl = asset.FindActionMap("PlayerControl", throwIfNotFound: true);
+        m_PlayerControl_Movement = m_PlayerControl.FindAction("Movement", throwIfNotFound: true);
+        m_PlayerControl_LaunchMissile = m_PlayerControl.FindAction("LaunchMissile", throwIfNotFound: true);
     }
 
     ~@ProjectMSInputAction()
     {
         UnityEngine.Debug.Assert(!m_TouchControl.enabled, "This will cause a leak and performance issues, ProjectMSInputAction.TouchControl.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_PlayerControl.enabled, "This will cause a leak and performance issues, ProjectMSInputAction.PlayerControl.Disable() has not been called.");
     }
 
     /// <summary>
@@ -326,6 +423,113 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="TouchControlActions" /> instance referencing this action map.
     /// </summary>
     public TouchControlActions @TouchControl => new TouchControlActions(this);
+
+    // PlayerControl
+    private readonly InputActionMap m_PlayerControl;
+    private List<IPlayerControlActions> m_PlayerControlActionsCallbackInterfaces = new List<IPlayerControlActions>();
+    private readonly InputAction m_PlayerControl_Movement;
+    private readonly InputAction m_PlayerControl_LaunchMissile;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "PlayerControl".
+    /// </summary>
+    public struct PlayerControlActions
+    {
+        private @ProjectMSInputAction m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public PlayerControlActions(@ProjectMSInputAction wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerControl/Movement".
+        /// </summary>
+        public InputAction @Movement => m_Wrapper.m_PlayerControl_Movement;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerControl/LaunchMissile".
+        /// </summary>
+        public InputAction @LaunchMissile => m_Wrapper.m_PlayerControl_LaunchMissile;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_PlayerControl; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="PlayerControlActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(PlayerControlActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="PlayerControlActions" />
+        public void AddCallbacks(IPlayerControlActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PlayerControlActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PlayerControlActionsCallbackInterfaces.Add(instance);
+            @Movement.started += instance.OnMovement;
+            @Movement.performed += instance.OnMovement;
+            @Movement.canceled += instance.OnMovement;
+            @LaunchMissile.started += instance.OnLaunchMissile;
+            @LaunchMissile.performed += instance.OnLaunchMissile;
+            @LaunchMissile.canceled += instance.OnLaunchMissile;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="PlayerControlActions" />
+        private void UnregisterCallbacks(IPlayerControlActions instance)
+        {
+            @Movement.started -= instance.OnMovement;
+            @Movement.performed -= instance.OnMovement;
+            @Movement.canceled -= instance.OnMovement;
+            @LaunchMissile.started -= instance.OnLaunchMissile;
+            @LaunchMissile.performed -= instance.OnLaunchMissile;
+            @LaunchMissile.canceled -= instance.OnLaunchMissile;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="PlayerControlActions.UnregisterCallbacks(IPlayerControlActions)" />.
+        /// </summary>
+        /// <seealso cref="PlayerControlActions.UnregisterCallbacks(IPlayerControlActions)" />
+        public void RemoveCallbacks(IPlayerControlActions instance)
+        {
+            if (m_Wrapper.m_PlayerControlActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="PlayerControlActions.AddCallbacks(IPlayerControlActions)" />
+        /// <seealso cref="PlayerControlActions.RemoveCallbacks(IPlayerControlActions)" />
+        /// <seealso cref="PlayerControlActions.UnregisterCallbacks(IPlayerControlActions)" />
+        public void SetCallbacks(IPlayerControlActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PlayerControlActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PlayerControlActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="PlayerControlActions" /> instance referencing this action map.
+    /// </summary>
+    public PlayerControlActions @PlayerControl => new PlayerControlActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "TouchControl" which allows adding and removing callbacks.
     /// </summary>
@@ -347,5 +551,27 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPrimaryPosition(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "PlayerControl" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="PlayerControlActions.AddCallbacks(IPlayerControlActions)" />
+    /// <seealso cref="PlayerControlActions.RemoveCallbacks(IPlayerControlActions)" />
+    public interface IPlayerControlActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Movement" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMovement(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LaunchMissile" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLaunchMissile(InputAction.CallbackContext context);
     }
 }

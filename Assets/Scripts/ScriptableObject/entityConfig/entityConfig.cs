@@ -11,5 +11,7 @@ public class EntityConfig : ScriptableObject
 
     [Header("Configuration")]
     public int MaxHP;
-    public float MovementSpeed;
+    public float MaxSpeed;
+    public float MaxFuel;
+    public int MaxMissiles;
 }
