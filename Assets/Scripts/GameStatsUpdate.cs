@@ -29,14 +29,28 @@ public class GameStatsUpdate : MonoBehaviour
     {
 
         if (currentFuelText != null)
-            currentFuelText.text = $"Fuel: {GameManager.Instance.Fuel:F1} / {GameManager.Instance.MaxFuel:F1}";
-
+        {
+            if(GameManager.Instance.Fuel < GameManager.Instance.minimumReturnFuel)
+            {                 
+                currentFuelText.color = Color.red;
+                currentFuelText.text = "Fuel: NOT ENOUGH";
+            }
+            else
+            {
+                currentFuelText.text = $"Fuel: {GameManager.Instance.Fuel:F1} / {GameManager.Instance.MaxFuel:F1}";
+            }
+    }
         if (currentMissilesText != null)
+        {
             currentMissilesText.text = $"Missiles: {GameManager.Instance.Missiles} / {GameManager.Instance.MaxMissiles}";
+        }
 
         if (currentMinimumFuelText != null)
+        {
             currentMinimumFuelText.text = $"Return Fuel: {GameManager.Instance.minimumReturnFuel:F1}";
+        }
     }
+
 
     public void minimunFuelIncrease()
     {
