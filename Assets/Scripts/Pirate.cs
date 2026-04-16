@@ -7,12 +7,12 @@ public class Pirate : Spaceship
 
     [Header("AI Tracking")]
     public Transform target;
+    public float ChaseRange = 20f;
 
     public override void Start()
     {
         base.Start();
 
-        // Find the player automatically if not assigned
         if (target == null)
         {
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -24,7 +24,6 @@ public class Pirate : Spaceship
 
         Fuel = UnityEngine.Random.Range(MaxFuel/3 , MaxFuel);
 
-        // Auto-assign movement script just in case you forgot to drag it in
         if (movementScript == null)
         {
             movementScript = GetComponent<Movement>();
@@ -33,11 +32,12 @@ public class Pirate : Spaceship
 
     public override void FixedUpdate()
     {
-        // Drains fuel automatically by calling Spaceship's FixedUpdate
         base.FixedUpdate();
 
         // The "Robot Brain" logic
-        if (target != null && Fuel > 0 && movementScript != null && movementScript.enabled)
+        float distanceToTarget = target != null ? Vector2.Distance(transform.position, target.position) : Mathf.Infinity;
+
+        if (distanceToTarget <= ChaseRange && Fuel > 0 && movementScript != null && movementScript.enabled)
         {
             // Calculate the exact direction to the target
             Vector2 direction = (target.position - transform.position).normalized;
@@ -63,7 +63,6 @@ public class Pirate : Spaceship
 
     private void FaceTarget(Vector2 direction)
     {
-        // Smooth rotation math so it turns naturally towards the player
         float rotationSpeed = 450f;
         float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle - 90f);
@@ -80,9 +79,16 @@ public class Pirate : Spaceship
         // If the thing we bumped into has a Player script...
         if (hitPlayer != null)
         {
-            //This is protoype
+            //!!!!!!!!!!!This is protoype!!!!!!!!!!
             hitPlayer.Fuel -= 20; // Steal some fuel from the player!
             Destroy(gameObject); // Then self-destruct in a kamikaze attack
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(transform.position, ChaseRange);
     }
 }

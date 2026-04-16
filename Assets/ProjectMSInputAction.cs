@@ -157,6 +157,15 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interaction"",
+                    ""type"": ""Button"",
+                    ""id"": ""34ce90f0-7660-4ed2-9ec4-5fa91ebeadcb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -225,6 +234,45 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
                     ""action"": ""LaunchMissile"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""33b1fa47-4b15-4132-b755-c4971aea4ff4"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""GameControl"",
+            ""id"": ""c18f1c56-ab06-43f3-b30b-96581e05598f"",
+            ""actions"": [
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""90f1651f-9521-4496-922d-818fcb4888e0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a15f50f5-d79d-4aa4-8d9b-2ff2c8e4e483"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -239,12 +287,17 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
         m_PlayerControl = asset.FindActionMap("PlayerControl", throwIfNotFound: true);
         m_PlayerControl_Movement = m_PlayerControl.FindAction("Movement", throwIfNotFound: true);
         m_PlayerControl_LaunchMissile = m_PlayerControl.FindAction("LaunchMissile", throwIfNotFound: true);
+        m_PlayerControl_Interaction = m_PlayerControl.FindAction("Interaction", throwIfNotFound: true);
+        // GameControl
+        m_GameControl = asset.FindActionMap("GameControl", throwIfNotFound: true);
+        m_GameControl_Pause = m_GameControl.FindAction("Pause", throwIfNotFound: true);
     }
 
     ~@ProjectMSInputAction()
     {
         UnityEngine.Debug.Assert(!m_TouchControl.enabled, "This will cause a leak and performance issues, ProjectMSInputAction.TouchControl.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_PlayerControl.enabled, "This will cause a leak and performance issues, ProjectMSInputAction.PlayerControl.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_GameControl.enabled, "This will cause a leak and performance issues, ProjectMSInputAction.GameControl.Disable() has not been called.");
     }
 
     /// <summary>
@@ -429,6 +482,7 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
     private List<IPlayerControlActions> m_PlayerControlActionsCallbackInterfaces = new List<IPlayerControlActions>();
     private readonly InputAction m_PlayerControl_Movement;
     private readonly InputAction m_PlayerControl_LaunchMissile;
+    private readonly InputAction m_PlayerControl_Interaction;
     /// <summary>
     /// Provides access to input actions defined in input action map "PlayerControl".
     /// </summary>
@@ -448,6 +502,10 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "PlayerControl/LaunchMissile".
         /// </summary>
         public InputAction @LaunchMissile => m_Wrapper.m_PlayerControl_LaunchMissile;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerControl/Interaction".
+        /// </summary>
+        public InputAction @Interaction => m_Wrapper.m_PlayerControl_Interaction;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -480,6 +538,9 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
             @LaunchMissile.started += instance.OnLaunchMissile;
             @LaunchMissile.performed += instance.OnLaunchMissile;
             @LaunchMissile.canceled += instance.OnLaunchMissile;
+            @Interaction.started += instance.OnInteraction;
+            @Interaction.performed += instance.OnInteraction;
+            @Interaction.canceled += instance.OnInteraction;
         }
 
         /// <summary>
@@ -497,6 +558,9 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
             @LaunchMissile.started -= instance.OnLaunchMissile;
             @LaunchMissile.performed -= instance.OnLaunchMissile;
             @LaunchMissile.canceled -= instance.OnLaunchMissile;
+            @Interaction.started -= instance.OnInteraction;
+            @Interaction.performed -= instance.OnInteraction;
+            @Interaction.canceled -= instance.OnInteraction;
         }
 
         /// <summary>
@@ -530,6 +594,102 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="PlayerControlActions" /> instance referencing this action map.
     /// </summary>
     public PlayerControlActions @PlayerControl => new PlayerControlActions(this);
+
+    // GameControl
+    private readonly InputActionMap m_GameControl;
+    private List<IGameControlActions> m_GameControlActionsCallbackInterfaces = new List<IGameControlActions>();
+    private readonly InputAction m_GameControl_Pause;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "GameControl".
+    /// </summary>
+    public struct GameControlActions
+    {
+        private @ProjectMSInputAction m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public GameControlActions(@ProjectMSInputAction wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "GameControl/Pause".
+        /// </summary>
+        public InputAction @Pause => m_Wrapper.m_GameControl_Pause;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_GameControl; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="GameControlActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(GameControlActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="GameControlActions" />
+        public void AddCallbacks(IGameControlActions instance)
+        {
+            if (instance == null || m_Wrapper.m_GameControlActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GameControlActionsCallbackInterfaces.Add(instance);
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="GameControlActions" />
+        private void UnregisterCallbacks(IGameControlActions instance)
+        {
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="GameControlActions.UnregisterCallbacks(IGameControlActions)" />.
+        /// </summary>
+        /// <seealso cref="GameControlActions.UnregisterCallbacks(IGameControlActions)" />
+        public void RemoveCallbacks(IGameControlActions instance)
+        {
+            if (m_Wrapper.m_GameControlActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="GameControlActions.AddCallbacks(IGameControlActions)" />
+        /// <seealso cref="GameControlActions.RemoveCallbacks(IGameControlActions)" />
+        /// <seealso cref="GameControlActions.UnregisterCallbacks(IGameControlActions)" />
+        public void SetCallbacks(IGameControlActions instance)
+        {
+            foreach (var item in m_Wrapper.m_GameControlActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_GameControlActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="GameControlActions" /> instance referencing this action map.
+    /// </summary>
+    public GameControlActions @GameControl => new GameControlActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "TouchControl" which allows adding and removing callbacks.
     /// </summary>
@@ -573,5 +733,27 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLaunchMissile(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Interaction" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInteraction(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "GameControl" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="GameControlActions.AddCallbacks(IGameControlActions)" />
+    /// <seealso cref="GameControlActions.RemoveCallbacks(IGameControlActions)" />
+    public interface IGameControlActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Pause" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPause(InputAction.CallbackContext context);
     }
 }

@@ -19,7 +19,10 @@ public class GameManager : MonoBehaviour
     public int StartPositionY;
     public float minimumReturnFuel;
 
+    [Header("Game Stats")]
+    public int Score;
     public enum GameState { Playing, Paused, GameOver }
+    public GameState currentState = GameState.Playing;
 
     public static GameManager Instance { get; private set; }
     private void Awake()
