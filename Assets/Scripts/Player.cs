@@ -130,6 +130,9 @@ public class Player : Spaceship
     }
     protected override void LaunchMissile()
     {
+        if (GameManager.Instance.currentState != GameManager.GameState.Playing) 
+            return;
+
         Debug.Log("Player is launching a missile!");
         base.LaunchMissile();
     }

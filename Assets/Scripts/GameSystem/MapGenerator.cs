@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MapGenerator2D : MonoBehaviour
 {
@@ -13,22 +14,24 @@ public class MapGenerator2D : MonoBehaviour
     [SerializeField] public CinemachineConfiner2D confiner;
 
     [Header("Player Spawn")]
-    [SerializeField] public GameManager playerPrefab;
-    public Vector2 PlayerStartPosition = Vector2.zero;
+    [SerializeField] public GameObject playerPrefab;
+    [SerializeField] public GameObject evacuationPointPrefab;
+    private Vector2 PlayerStartPosition = Vector2.zero;
+    private GameObject playerInstance;
 
+    //Camera setup
+    [SerializeField] public CinemachineCamera cinemachineCam;
+    
     [Header("Object Categories")]
     public List<SpawnCategory> planetCategories = new List<SpawnCategory>();
     public List<SpawnCategory> spaceshipCategories = new List<SpawnCategory>();
 
     private List<GameObject> spawnedObjects = new List<GameObject>();
 
-    private void Awake()
-    {
-        if (mapRadius <= 40f) mapRadius = 41f;
-    }
 
     private void Start()
     {
+        if (mapRadius <= 40f) mapRadius = 41f;
         GenerateMap();
     }
 
@@ -49,6 +52,32 @@ public class MapGenerator2D : MonoBehaviour
 
     private void GenerateMap()
     {
+
+        //Player Spawn
+        if (playerInstance == null)
+        {
+            PlayerStartPosition = mapCenter + (Random.insideUnitCircle * 5f);
+            GameObject player = Instantiate(playerPrefab, new Vector3(PlayerStartPosition.x, PlayerStartPosition.y, 0f), Quaternion.identity);
+            playerInstance = player;
+        }
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.SetPlayer(playerInstance.GetComponent<Player>());
+        }
+
+        //Set Camera to follow player
+        Debug.Log($"{cinemachineCam} + {playerInstance}");
+        if (cinemachineCam != null && playerInstance != null)
+        {
+            cinemachineCam.Target.TrackingTarget = playerInstance.transform;
+        }
+
+        //Evacuation Point
+        Vector2 randomOffset = Random.insideUnitCircle * 10f;
+        Vector2 randomSpawnPosition = PlayerStartPosition + randomOffset;
+        Instantiate(evacuationPointPrefab, new Vector3(randomSpawnPosition.x, randomSpawnPosition.y, 0f), Quaternion.identity);
+
         if (planetCategories != null)
         {
             foreach (SpawnCategory category in planetCategories) GenerateCategory(category);

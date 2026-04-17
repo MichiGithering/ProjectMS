@@ -39,10 +39,11 @@ public class Objects : Identity
     }
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
+
         if (Mirage)
         {
-            Player playerScript = collision.GetComponent<Player>();
 
+            Player playerScript = collision.GetComponent<Player>();
             if (playerScript != null)
             {
                 Debug.Log("Player flew into a Mirage! It vanished!");

@@ -54,7 +54,8 @@ public class Spaceship : Entity
     
     public virtual void FixedUpdate()
     {
-        Fuel -= Time.deltaTime;
+        if(Fuel > 0)
+            Fuel -= Time.deltaTime;
     }
 }
 

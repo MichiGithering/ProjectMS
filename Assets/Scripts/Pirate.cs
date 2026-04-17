@@ -74,13 +74,12 @@ public class Pirate : Spaceship
     {
         base.OnTriggerEnter2D(collision);
 
-        Player hitPlayer = collision.GetComponent<Player>();
-
-        // If the thing we bumped into has a Player script...
-        if (hitPlayer != null)
+        Player playerScript = collision.GetComponent<Player>();
+        if (playerScript != null)
         {
+
             //!!!!!!!!!!!This is protoype!!!!!!!!!!
-            hitPlayer.Fuel -= 20; // Steal some fuel from the player!
+            playerScript.Fuel -= 20; // Steal some fuel from the player!
             Destroy(gameObject); // Then self-destruct in a kamikaze attack
         }
     }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4746440242100137298}
   - component: {fileID: 8847461699678456090}
-  - component: {fileID: 661426897726649800}
+  - component: {fileID: 3872963094295646394}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -54,7 +54,9 @@ MonoBehaviour:
   StartPositionX: 0
   StartPositionY: 0
   minimumReturnFuel: 0
---- !u!114 &661426897726649800
+  Score: 0
+  currentState: 0
+--- !u!114 &3872963094295646394
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,7 +65,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4610703111959401290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2dc2b1b97f25c9418f5fe22c19d4e16, type: 3}
+  m_Script: {fileID: 11500000, guid: 993135fc77ab9014db716c0114f54415, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
-  belowFuel: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::GameStateManager
