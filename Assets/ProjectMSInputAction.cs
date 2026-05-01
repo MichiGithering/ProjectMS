@@ -260,6 +260,33 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MenuExpedition"",
+                    ""type"": ""Button"",
+                    ""id"": ""b728a89a-ea8e-4786-918b-1116600ad7f8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MenuUpgrade"",
+                    ""type"": ""Button"",
+                    ""id"": ""c172e001-aa17-4206-a944-64e93ff9bdaa"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MenuCargo"",
+                    ""type"": ""Button"",
+                    ""id"": ""51c2d271-2f1e-4f6c-8fcc-0caa00484bb7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -271,6 +298,39 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3bf8d020-5d9c-4f11-9546-7f41ada87d86"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MenuExpedition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9d14336-470d-46a1-a86e-ea7a9b846cdd"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MenuUpgrade"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""30610641-e2fb-40bc-b923-dcefe44f2698"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MenuCargo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -291,6 +351,9 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
         // GameControl
         m_GameControl = asset.FindActionMap("GameControl", throwIfNotFound: true);
         m_GameControl_Pause = m_GameControl.FindAction("Pause", throwIfNotFound: true);
+        m_GameControl_MenuExpedition = m_GameControl.FindAction("MenuExpedition", throwIfNotFound: true);
+        m_GameControl_MenuUpgrade = m_GameControl.FindAction("MenuUpgrade", throwIfNotFound: true);
+        m_GameControl_MenuCargo = m_GameControl.FindAction("MenuCargo", throwIfNotFound: true);
     }
 
     ~@ProjectMSInputAction()
@@ -599,6 +662,9 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_GameControl;
     private List<IGameControlActions> m_GameControlActionsCallbackInterfaces = new List<IGameControlActions>();
     private readonly InputAction m_GameControl_Pause;
+    private readonly InputAction m_GameControl_MenuExpedition;
+    private readonly InputAction m_GameControl_MenuUpgrade;
+    private readonly InputAction m_GameControl_MenuCargo;
     /// <summary>
     /// Provides access to input actions defined in input action map "GameControl".
     /// </summary>
@@ -614,6 +680,18 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "GameControl/Pause".
         /// </summary>
         public InputAction @Pause => m_Wrapper.m_GameControl_Pause;
+        /// <summary>
+        /// Provides access to the underlying input action "GameControl/MenuExpedition".
+        /// </summary>
+        public InputAction @MenuExpedition => m_Wrapper.m_GameControl_MenuExpedition;
+        /// <summary>
+        /// Provides access to the underlying input action "GameControl/MenuUpgrade".
+        /// </summary>
+        public InputAction @MenuUpgrade => m_Wrapper.m_GameControl_MenuUpgrade;
+        /// <summary>
+        /// Provides access to the underlying input action "GameControl/MenuCargo".
+        /// </summary>
+        public InputAction @MenuCargo => m_Wrapper.m_GameControl_MenuCargo;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -643,6 +721,15 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @MenuExpedition.started += instance.OnMenuExpedition;
+            @MenuExpedition.performed += instance.OnMenuExpedition;
+            @MenuExpedition.canceled += instance.OnMenuExpedition;
+            @MenuUpgrade.started += instance.OnMenuUpgrade;
+            @MenuUpgrade.performed += instance.OnMenuUpgrade;
+            @MenuUpgrade.canceled += instance.OnMenuUpgrade;
+            @MenuCargo.started += instance.OnMenuCargo;
+            @MenuCargo.performed += instance.OnMenuCargo;
+            @MenuCargo.canceled += instance.OnMenuCargo;
         }
 
         /// <summary>
@@ -657,6 +744,15 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @MenuExpedition.started -= instance.OnMenuExpedition;
+            @MenuExpedition.performed -= instance.OnMenuExpedition;
+            @MenuExpedition.canceled -= instance.OnMenuExpedition;
+            @MenuUpgrade.started -= instance.OnMenuUpgrade;
+            @MenuUpgrade.performed -= instance.OnMenuUpgrade;
+            @MenuUpgrade.canceled -= instance.OnMenuUpgrade;
+            @MenuCargo.started -= instance.OnMenuCargo;
+            @MenuCargo.performed -= instance.OnMenuCargo;
+            @MenuCargo.canceled -= instance.OnMenuCargo;
         }
 
         /// <summary>
@@ -755,5 +851,26 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPause(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MenuExpedition" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMenuExpedition(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MenuUpgrade" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMenuUpgrade(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MenuCargo" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMenuCargo(InputAction.CallbackContext context);
     }
 }

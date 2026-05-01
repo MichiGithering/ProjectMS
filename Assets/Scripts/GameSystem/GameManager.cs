@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,7 +20,7 @@ public class GameManager : MonoBehaviour
     public float minimumReturnFuel;
 
     [Header("Game Stats")]
-    public int Score;
+    public int ResearchPoints;
     public enum GameState { Playing, Paused, GameOver }
     public GameState currentState = GameState.Playing;
 
@@ -88,7 +90,6 @@ public class GameManager : MonoBehaviour
         // UI Manager to hide the Pause Menu
     }
     
-    //In case of player spawning instead of placing in editor
     public void SetPlayer(Player newlySpawnedPlayer)
     {
         player = newlySpawnedPlayer;
@@ -136,5 +137,65 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f; // Freeze the game
 
         Debug.Log("Game Over! Context: " + context  );
+
+        if(context == 0)
+        {
+            Debug.Log("You successfully evacuated! Congratulations!");
+            if (SaveScoreManager.Instance != null)
+            {
+                SaveScoreManager.Instance.SaveRun(TravelDistance, ResearchPoints, CargoBag);
+
+                SceneManager.LoadScene("MainMenuScene");
+            }
+        }
+        else if(context == 1)
+        {
+            Debug.Log("You ran out of fuel and couldn't return to the station. Better luck next time!");
+            if (SaveScoreManager.Instance != null)
+            {
+                SaveScoreManager.Instance.SaveRun(TravelDistance, 0, null);
+            }
+        }
+        else if(context == 2)
+        {
+            Debug.Log("You hit an obstacle and your ship was destroyed. Be more careful next time!");
+            if (SaveScoreManager.Instance != null)
+            {
+                SaveScoreManager.Instance.SaveRun(TravelDistance, 0, null);
+            }
+        }
+        else
+        {
+            Debug.Log("Your ship was lost due to unforeseen circumstances. Try again!");
+            if (SaveScoreManager.Instance != null)
+            {
+                SaveScoreManager.Instance.SaveRun(TravelDistance, 0, null);
+            }
+        }
+        if (SaveScoreManager.Instance != null)
+        {
+            SaveScoreManager.Instance.SaveRun(TravelDistance, ResearchPoints, CargoBag);
+        }
+    }
+
+    [Header("Run Inventory")]
+    public List<SaveScoreManager.InventoryItem> CargoBag = new List<SaveScoreManager.InventoryItem>();
+
+    // Call this when the player investigates and successfully collects loot. It will add the loot to the Cargo Bag, stacking it if it's already there.
+    public void CollectLoot(string lootName, int quantity)
+    {
+        // Check if it's already in the bag to stack it
+        SaveScoreManager.InventoryItem existingLoot = CargoBag.Find(item => item.ItemName == lootName);
+
+        if (existingLoot != null)
+        {
+            existingLoot.Quantity += quantity;
+        }
+        else
+        {
+            CargoBag.Add(new SaveScoreManager.InventoryItem(quantity, lootName));
+        }
+
+        Debug.Log($"Collected {quantity} {lootName}! It is in the Cargo Bag.");
     }
 }
