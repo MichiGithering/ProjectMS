@@ -5,15 +5,17 @@ public class InvestigatePlanet : InteractableObject
 {
     private Planet planetTarget;
     private Player currentPlayer;
-
+    private LootChest lootChest;
     protected override void Awake()
     {
         base.Awake();
         planetTarget = GetComponent<Planet>();
+        lootChest = GetComponent<LootChest>();
         if (planetTarget == null)
         {
             Debug.LogError($"InvestigatePlanet on {gameObject.name} requires a Planet component!");
         }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -49,6 +51,9 @@ public class InvestigatePlanet : InteractableObject
         if (currentPlayer != null)
         {
             planetTarget.GetReward(currentPlayer);
+
+            if (lootChest != null)
+                lootChest.Open();
         }
     }
     private void OnDrawGizmos()

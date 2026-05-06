@@ -14,16 +14,8 @@ public class GameStatsUpdate : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         gameManager = GameManager.Instance;
-
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 
     public void TextUpdate()

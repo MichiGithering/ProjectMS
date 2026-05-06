@@ -287,6 +287,24 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Confirm"",
+                    ""type"": ""Button"",
+                    ""id"": ""c9da1d71-20d1-4ec0-8ead-c25af5d10859"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Deny"",
+                    ""type"": ""Button"",
+                    ""id"": ""c9ae9ea0-7e8f-48da-a867-02d6fb58cdad"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -333,6 +351,28 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
                     ""action"": ""MenuCargo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""278c6afc-f67d-4909-ae68-1820319a4d41"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""74ddf208-b47f-4342-998c-8cc28058496e"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Deny"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -354,6 +394,8 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
         m_GameControl_MenuExpedition = m_GameControl.FindAction("MenuExpedition", throwIfNotFound: true);
         m_GameControl_MenuUpgrade = m_GameControl.FindAction("MenuUpgrade", throwIfNotFound: true);
         m_GameControl_MenuCargo = m_GameControl.FindAction("MenuCargo", throwIfNotFound: true);
+        m_GameControl_Confirm = m_GameControl.FindAction("Confirm", throwIfNotFound: true);
+        m_GameControl_Deny = m_GameControl.FindAction("Deny", throwIfNotFound: true);
     }
 
     ~@ProjectMSInputAction()
@@ -665,6 +707,8 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_GameControl_MenuExpedition;
     private readonly InputAction m_GameControl_MenuUpgrade;
     private readonly InputAction m_GameControl_MenuCargo;
+    private readonly InputAction m_GameControl_Confirm;
+    private readonly InputAction m_GameControl_Deny;
     /// <summary>
     /// Provides access to input actions defined in input action map "GameControl".
     /// </summary>
@@ -692,6 +736,14 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "GameControl/MenuCargo".
         /// </summary>
         public InputAction @MenuCargo => m_Wrapper.m_GameControl_MenuCargo;
+        /// <summary>
+        /// Provides access to the underlying input action "GameControl/Confirm".
+        /// </summary>
+        public InputAction @Confirm => m_Wrapper.m_GameControl_Confirm;
+        /// <summary>
+        /// Provides access to the underlying input action "GameControl/Deny".
+        /// </summary>
+        public InputAction @Deny => m_Wrapper.m_GameControl_Deny;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -730,6 +782,12 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
             @MenuCargo.started += instance.OnMenuCargo;
             @MenuCargo.performed += instance.OnMenuCargo;
             @MenuCargo.canceled += instance.OnMenuCargo;
+            @Confirm.started += instance.OnConfirm;
+            @Confirm.performed += instance.OnConfirm;
+            @Confirm.canceled += instance.OnConfirm;
+            @Deny.started += instance.OnDeny;
+            @Deny.performed += instance.OnDeny;
+            @Deny.canceled += instance.OnDeny;
         }
 
         /// <summary>
@@ -753,6 +811,12 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
             @MenuCargo.started -= instance.OnMenuCargo;
             @MenuCargo.performed -= instance.OnMenuCargo;
             @MenuCargo.canceled -= instance.OnMenuCargo;
+            @Confirm.started -= instance.OnConfirm;
+            @Confirm.performed -= instance.OnConfirm;
+            @Confirm.canceled -= instance.OnConfirm;
+            @Deny.started -= instance.OnDeny;
+            @Deny.performed -= instance.OnDeny;
+            @Deny.canceled -= instance.OnDeny;
         }
 
         /// <summary>
@@ -872,5 +936,19 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMenuCargo(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Confirm" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnConfirm(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Deny" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDeny(InputAction.CallbackContext context);
     }
 }

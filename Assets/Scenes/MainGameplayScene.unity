@@ -163,7 +163,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 2
-    OrthographicSize: 8
+    OrthographicSize: 15
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -785,14 +785,16 @@ MonoBehaviour:
   - name: Planet_Real
     prefabs:
     - prefab: {fileID: 1922282646468557705, guid: ce525b5cd46580d4faa55c47902ef0f3, type: 3}
-      weight: 100
+      weight: 70
+    - prefab: {fileID: 1922282646468557705, guid: 05b493c19ee1a634db9d76a08f80510f, type: 3}
+      weight: 30
     avoidSafeZone: 1
-    randomizeCount: 0
-    minCount: 10
-    maxCount: 10
+    randomizeCount: 1
+    minCount: 25
+    maxCount: 40
     randomizeScale: 1
-    minScale: 2
-    maxScale: 6
+    minScale: 1
+    maxScale: 3
     overlapLayerMask:
       serializedVersion: 2
       m_Bits: 128
@@ -804,15 +806,15 @@ MonoBehaviour:
       weight: 100
     avoidSafeZone: 1
     randomizeCount: 1
-    minCount: 5
-    maxCount: 10
+    minCount: 20
+    maxCount: 35
     randomizeScale: 1
-    minScale: 2
-    maxScale: 6
+    minScale: 1
+    maxScale: 3
     overlapLayerMask:
       serializedVersion: 2
       m_Bits: 128
-    overlapCheckRadius: 50
+    overlapCheckRadius: 25
     maxPlacementRetries: 100
   spaceshipCategories:
   - name: Pirate
@@ -1008,7 +1010,7 @@ Camera:
   far clip plane: 1000
   field of view: 2
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 15
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2

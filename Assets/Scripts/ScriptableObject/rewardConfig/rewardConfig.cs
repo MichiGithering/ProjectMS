@@ -12,6 +12,7 @@ public class RewardConfig : ScriptableObject
     [Header("Configuration")]
     public float ReFuel;
     public int ReMissile;
+    public int RewardPoints;
 
 
 }

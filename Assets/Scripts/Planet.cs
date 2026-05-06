@@ -48,6 +48,9 @@ public class Planet : Objects
 
             Debug.Log($"Collected {ReFuel} Fuel and {ReMissile} Missiles from Planet!");
             GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f, 1f);
+
+            GameManager.Instance.AddResearchPoints(_rewardConfig.RewardPoints);
         }
+
     }
 }

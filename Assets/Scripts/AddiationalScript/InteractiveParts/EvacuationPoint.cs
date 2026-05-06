@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class EvacuationPoint : InteractableObject
 {
+    private bool        CanEvac = true;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -22,10 +23,14 @@ public class EvacuationPoint : InteractableObject
     }
     protected override void InteractionActive()
     {
+        if(GameManager.Instance.minimumReturnFuel > GameManager.Instance.Fuel)
+        {
+            Debug.Log("Not enough fuel to evacuate! Minimum return fuel required: " + GameManager.Instance.minimumReturnFuel);
+            return;
+        }
         Debug.Log("Player reached the Evacuation Point! Evacuation sequence triggered!");
 
         GameManager.Instance.GameOver(0); // Evacuation
-        Time.timeScale = 0f;
     }
 
     private void OnDrawGizmos()

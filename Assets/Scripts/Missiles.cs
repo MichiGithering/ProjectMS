@@ -28,6 +28,7 @@ public class Missiles : Entity
             else
             {
                 Debug.Log("Missile flew right through a Mirage!");
+                Destroy(hitPlanet.gameObject);
             }
         }
 

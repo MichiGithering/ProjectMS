@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public float minimumReturnFuel;
 
     [Header("Game Stats")]
-    public int ResearchPoints;
+    public int ResearchPoints = 0;
     public enum GameState { Playing, Paused, GameOver }
     public GameState currentState = GameState.Playing;
 
@@ -50,6 +50,37 @@ public class GameManager : MonoBehaviour
             StartPositionX = Mathf.RoundToInt(player.transform.position.x);
             StartPositionY = Mathf.RoundToInt(player.transform.position.y);
         }
+    }
+
+    private void OnEnable()
+    {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "MainGameplayScene")
+        {
+            ResetForNewRun();
+        }
+    }
+
+    public void ResetForNewRun()
+    {
+        currentState = GameState.Playing;
+        Time.timeScale = 1f;          // ? THIS is why player was frozen!
+        ExpandTime = 0f;
+        TravelDistance = 0f;
+        minimumReturnFuel = 0f;
+        hasGivenFuelWarning = false;
+        ResearchPoints = 0;
+        CargoBag.Clear();
+        player = null;
     }
 
     private void Update()
@@ -126,56 +157,54 @@ public class GameManager : MonoBehaviour
         if (Fuel <= 0)
         {
             GameOver(1); // Ran out of fuel
-            Time.timeScale = 0f; // Freeze the game when they die
         }
     }
-
-    //Game over : 0 = evacuate , 1 = ran out of fuel , 2 = hit an obstacle , 3 = other
+    public void AddResearchPoints(int amount)
+    {
+        int AddedPoints = amount + Mathf.RoundToInt((ExpandTime / 10f) + (TravelDistance / 50f));
+        ResearchPoints += AddedPoints;
+    }
+    // Game over: 0 = evacuate, 1 = ran out of fuel, 2 = hit an obstacle, 3 = other
     public void GameOver(int context)
     {
         currentState = GameState.GameOver;
-        Time.timeScale = 0f; // Freeze the game
 
-        Debug.Log("Game Over! Context: " + context  );
-
-        if(context == 0)
+        if (context == 0)
         {
             Debug.Log("You successfully evacuated! Congratulations!");
+
+
             if (SaveScoreManager.Instance != null)
             {
                 SaveScoreManager.Instance.SaveRun(TravelDistance, ResearchPoints, CargoBag);
+            }
 
-                SceneManager.LoadScene("MainMenuScene");
-            }
-        }
-        else if(context == 1)
-        {
-            Debug.Log("You ran out of fuel and couldn't return to the station. Better luck next time!");
-            if (SaveScoreManager.Instance != null)
-            {
-                SaveScoreManager.Instance.SaveRun(TravelDistance, 0, null);
-            }
-        }
-        else if(context == 2)
-        {
-            Debug.Log("You hit an obstacle and your ship was destroyed. Be more careful next time!");
-            if (SaveScoreManager.Instance != null)
-            {
-                SaveScoreManager.Instance.SaveRun(TravelDistance, 0, null);
-            }
+
         }
         else
         {
-            Debug.Log("Your ship was lost due to unforeseen circumstances. Try again!");
+
+            if (context == 1)
+            {
+                Debug.Log("You ran out of fuel and couldn't return to the station. Better luck next time!");
+
+            }
+            else if (context == 2)
+            {
+                Debug.Log("You hit an obstacle and your ship was destroyed. Be more careful next time!");
+            }
+            else
+            {
+                Debug.Log("Your ship was lost due to unforeseen circumstances. Try again!");
+            }
+
             if (SaveScoreManager.Instance != null)
             {
                 SaveScoreManager.Instance.SaveRun(TravelDistance, 0, null);
             }
         }
-        if (SaveScoreManager.Instance != null)
-        {
-            SaveScoreManager.Instance.SaveRun(TravelDistance, ResearchPoints, CargoBag);
-        }
+
+        SceneManager.LoadScene("MainMenuScene");
     }
 
     [Header("Run Inventory")]

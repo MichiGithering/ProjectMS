@@ -54,11 +54,12 @@ public class MapGenerator2D : MonoBehaviour
     {
 
         //Player Spawn
-        if (playerInstance == null)
+        if (playerInstance == null || playerInstance.Equals(null))
         {
             PlayerStartPosition = mapCenter + (Random.insideUnitCircle * 5f);
-            GameObject player = Instantiate(playerPrefab, new Vector3(PlayerStartPosition.x, PlayerStartPosition.y, 0f), Quaternion.identity);
-            playerInstance = player;
+            playerInstance = Instantiate(playerPrefab,
+                new Vector3(PlayerStartPosition.x, PlayerStartPosition.y, 0f),
+                Quaternion.identity);
         }
 
         if (GameManager.Instance != null)

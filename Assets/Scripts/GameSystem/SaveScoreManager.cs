@@ -62,7 +62,23 @@ public class SaveScoreManager : MonoBehaviour
         SaveProfile(profile);
         Debug.Log($"Added {amountToAdd} {nameOfItem} to inventory!");
     }
+    public void RemoveItemFromInventory(string nameOfItem, int amountToRemove)
+    {
+        PlayerProfileData profile = LoadGame();
+        InventoryItem existingItem = profile.SavedItems.Find(item => item.ItemName == nameOfItem);
 
+        if (existingItem != null && existingItem.Quantity >= amountToRemove)
+        {
+            existingItem.Quantity -= amountToRemove; // Deduct the amount
+
+            if (existingItem.Quantity <= 0)
+            {
+                profile.SavedItems.Remove(existingItem);
+            }
+
+            SaveProfile(profile);
+        }
+    }
     public void SaveRun(float runDistance, int researchPointsEarned, List<InventoryItem> extractedItems = null)
     {
         PlayerProfileData profile = LoadGame();
@@ -89,7 +105,12 @@ public class SaveScoreManager : MonoBehaviour
         SaveProfile(profile);
         Debug.Log("Run Saved! Temporary cargo transferred to permanent stash.");
     }
-
+    public void AdjustResearchPoints(int amount)
+    {
+        PlayerProfileData profile = LoadGame();
+        profile.TotalResearchPoints += amount;
+        SaveProfile(profile);
+    }
     private void SaveProfile(PlayerProfileData profile)
     {
         string jsonString = JsonUtility.ToJson(profile, true);
