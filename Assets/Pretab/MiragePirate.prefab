@@ -85,8 +85,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 4334783836991956000, guid: ac60bd2ff4d7a5846a30fd311270e08e, type: 3}
-  m_Color: {r: 1, g: 0.9195918, b: 0, a: 1}
+  m_Sprite: {fileID: -5383109096222793229, guid: 7cfc07c9cfd0d6c47a723c6f5029c896, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -119,6 +119,7 @@ MonoBehaviour:
   Missiles: 0
   MaxMissiles: 0
   missilePrefab: {fileID: 2788311134059730509, guid: ceec3f23c862bf14693c52469236f06d, type: 3}
+  thrusterPrefab: {fileID: 2252384759449804545, guid: e587251f11324b9458eb5f96ddc8675c, type: 3}
   movementScript: {fileID: 4251706138793380281}
   target: {fileID: 0}
   ChaseRange: 20

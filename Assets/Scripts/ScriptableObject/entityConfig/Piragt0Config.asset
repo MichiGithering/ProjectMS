@@ -15,7 +15,7 @@ MonoBehaviour:
   itemIcon: {fileID: 0}
   Name: 
   Description: 
-  MaxHP: 50
+  MaxHP: 1
   MaxSpeed: 3
   MaxFuel: 100
   MaxMissiles: 1

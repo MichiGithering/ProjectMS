@@ -9,6 +9,13 @@ public class Pirate : Spaceship
     public Transform target;
     public float ChaseRange = 20f;
 
+    [Header("Damage")]
+    [SerializeField] private float ramFuelDrain = 20f; // How much fuel stolen on ram
+
+    // -------------------------------------------------------------------------
+    // Initialization
+    // -------------------------------------------------------------------------
+
     public override void Start()
     {
         base.Start();
@@ -17,45 +24,42 @@ public class Pirate : Spaceship
         {
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
             if (playerObj != null)
-            {
                 target = playerObj.transform;
-            }
         }
 
-        Fuel = UnityEngine.Random.Range(MaxFuel/3 , MaxFuel);
+        Fuel = Random.Range(MaxFuel / 3f, MaxFuel);
 
         if (movementScript == null)
-        {
             movementScript = GetComponent<Movement>();
-        }
     }
+
+    // -------------------------------------------------------------------------
+    // AI Update
+    // -------------------------------------------------------------------------
 
     public override void FixedUpdate()
     {
         base.FixedUpdate();
 
-        // The "Robot Brain" logic
-        float distanceToTarget = target != null ? Vector2.Distance(transform.position, target.position) : Mathf.Infinity;
+        float distanceToTarget = target != null
+            ? Vector2.Distance(transform.position, target.position)
+            : Mathf.Infinity;
 
         if (distanceToTarget <= ChaseRange && Fuel > 0 && movementScript != null && movementScript.enabled)
         {
-            // Calculate the exact direction to the target
             Vector2 direction = (target.position - transform.position).normalized;
 
-            // THE TRICK: We send 0f first to unlock your Movement script's "if" statement, 
-            // then immediately send the actual direction!
+            // Reset then set — required by Movement script's input guard
             movementScript.MoveHorizontal(0f);
             movementScript.MoveHorizontal(direction.x);
 
             movementScript.MoveVertical(0f);
             movementScript.MoveVertical(direction.y);
 
-            // Make the Pirage rotate to look at what it's chasing
             FaceTarget(direction);
         }
         else if (movementScript != null)
         {
-            // If it loses the target or runs out of fuel, send 0 to stop engines
             movementScript.MoveHorizontal(0f);
             movementScript.MoveVertical(0f);
         }
@@ -65,10 +69,15 @@ public class Pirate : Spaceship
     {
         float rotationSpeed = 450f;
         float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle - 90f);
+        Quaternion targetRot = Quaternion.Euler(0, 0, targetAngle - 90f);
 
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+        transform.rotation = Quaternion.RotateTowards(
+            transform.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime);
     }
+
+    // -------------------------------------------------------------------------
+    // Collision — Ram Attack
+    // -------------------------------------------------------------------------
 
     public override void OnTriggerEnter2D(Collider2D collision)
     {
@@ -77,17 +86,38 @@ public class Pirate : Spaceship
         Player playerScript = collision.GetComponent<Player>();
         if (playerScript != null)
         {
+            // Flash the PLAYER to show they got hit
+            playerScript.HitFlash();
 
-            //!!!!!!!!!!!This is protoype!!!!!!!!!!
-            playerScript.Fuel -= 20; // Steal some fuel from the player!
-            Destroy(gameObject); // Then self-destruct in a kamikaze attack
+            // Flash self before dying
+            HitFlash();
+
+            // Steal fuel from the player (prototype)
+            playerScript.Fuel -= ramFuelDrain;
+
+            // Pirate self-destructs on ram
+            OnDeath();
         }
     }
+
+    // -------------------------------------------------------------------------
+    // Death Override
+    // -------------------------------------------------------------------------
+
+    protected override void OnDeath()
+    {
+        Debug.Log($"{name} destroyed!");
+        // You can add loot drop, explosion effect, etc. here later
+        Destroy(gameObject);
+    }
+
+    // -------------------------------------------------------------------------
+    // Editor Gizmo
+    // -------------------------------------------------------------------------
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-
         Gizmos.DrawWireSphere(transform.position, ChaseRange);
     }
 }

@@ -15,7 +15,7 @@ MonoBehaviour:
   itemIcon: {fileID: 0}
   Name: Player
   Description: 
-  MaxHP: 100
+  MaxHP: 1
   MaxSpeed: 5
   MaxFuel: 100
   MaxMissiles: 3

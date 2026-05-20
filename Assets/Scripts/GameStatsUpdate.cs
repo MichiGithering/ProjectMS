@@ -5,8 +5,6 @@ public class GameStatsUpdate : MonoBehaviour
 {
     public static GameStatsUpdate Instance { get; private set; }
 
-    private GameManager gameManager;
-
     [Header("Game Stats")]
     public TextMeshProUGUI currentFuelText;
     public TextMeshProUGUI currentMissilesText;
@@ -15,24 +13,29 @@ public class GameStatsUpdate : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        gameManager = GameManager.Instance;
+    }
+
+    private void Update()
+    {
+        TextUpdate();
     }
 
     public void TextUpdate()
     {
-
         if (currentFuelText != null)
         {
-            if(GameManager.Instance.Fuel < GameManager.Instance.minimumReturnFuel)
-            {                 
+            if (GameManager.Instance.Fuel < GameManager.Instance.minimumReturnFuel)
+            {
                 currentFuelText.color = Color.red;
                 currentFuelText.text = "Fuel: NOT ENOUGH";
             }
             else
             {
+                currentFuelText.color = Color.white;
                 currentFuelText.text = $"Fuel: {GameManager.Instance.Fuel:F1} / {GameManager.Instance.MaxFuel:F1}";
             }
-    }
+        }
+
         if (currentMissilesText != null)
         {
             currentMissilesText.text = $"Missiles: {GameManager.Instance.Missiles} / {GameManager.Instance.MaxMissiles}";
@@ -44,7 +47,7 @@ public class GameStatsUpdate : MonoBehaviour
         }
     }
 
-
+    // You can safely delete this if you are already calculating this in the GameManager!
     public void minimunFuelIncrease()
     {
 

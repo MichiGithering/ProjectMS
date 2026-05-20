@@ -5,19 +5,11 @@ using UnityEngine.SceneManagement;
 public class StartExp : MonoBehaviour
 {
     private ProjectMSInputAction playerInputActions;
-
+    [SerializeField] private GameObject player;
     private void Awake()
     {
         playerInputActions = new ProjectMSInputAction();
     }
-
-    public void StartExpedition()
-    {
-        Debug.Log("Starting Expedition... Loading Main Gameplay Scene!");
-
-        SceneManager.LoadScene("MainGameplayScene");
-    }
-
     private void OnEnable()
     {
         playerInputActions.Enable();
@@ -34,6 +26,22 @@ public class StartExp : MonoBehaviour
 
     private void OnStartExpeditionPerformed(InputAction.CallbackContext context)
     {
-        StartExpedition();
+        if(SceneTransition.Instance != null)
+        {
+            SceneTransition.Instance.TransitionToScene("MainGameplayScene");
+        }
+        else
+        {
+            SceneManager.LoadScene("MainGameplayScene");
+        }
+
+        if (player != null)
+        {
+            Rigidbody2D playerRigidbody = player.GetComponent<Rigidbody2D>();
+            if (playerRigidbody != null)
+            {
+                playerRigidbody.linearVelocity = Vector2.up;
+            }
+        }
     }
 }

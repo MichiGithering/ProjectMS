@@ -27,6 +27,8 @@ public class SaveScoreManager : MonoBehaviour
         public List<InventoryItem> SavedItems = new List<InventoryItem>();
 
         public float LatestDistanceTraveled;
+
+        public float LongestDistanceTraveled;
     }
 
     private string saveFilePath;
@@ -60,7 +62,6 @@ public class SaveScoreManager : MonoBehaviour
         }
 
         SaveProfile(profile);
-        Debug.Log($"Added {amountToAdd} {nameOfItem} to inventory!");
     }
     public void RemoveItemFromInventory(string nameOfItem, int amountToRemove)
     {
@@ -85,6 +86,11 @@ public class SaveScoreManager : MonoBehaviour
         profile.TotalResearchPoints += researchPointsEarned;
         profile.LatestDistanceTraveled = runDistance;
 
+        if (runDistance > profile.LongestDistanceTraveled)
+        {
+            profile.LongestDistanceTraveled = runDistance;
+        }
+
         if (extractedItems != null)
         {
             foreach (InventoryItem loot in extractedItems)
@@ -103,12 +109,12 @@ public class SaveScoreManager : MonoBehaviour
         }
 
         SaveProfile(profile);
-        Debug.Log("Run Saved! Temporary cargo transferred to permanent stash.");
     }
     public void AdjustResearchPoints(int amount)
     {
         PlayerProfileData profile = LoadGame();
         profile.TotalResearchPoints += amount;
+        profile.TotalResearchPoints = Mathf.Max(0, profile.TotalResearchPoints);
         SaveProfile(profile);
     }
     private void SaveProfile(PlayerProfileData profile)

@@ -68,7 +68,6 @@ public class MapGenerator2D : MonoBehaviour
         }
 
         //Set Camera to follow player
-        Debug.Log($"{cinemachineCam} + {playerInstance}");
         if (cinemachineCam != null && playerInstance != null)
         {
             cinemachineCam.Target.TrackingTarget = playerInstance.transform;

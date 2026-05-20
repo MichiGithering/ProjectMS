@@ -2,9 +2,15 @@ using UnityEngine;
 
 public class Missiles : Entity
 {
-    [Header("Missiles")]
-    private staticMovement movementScript;
+    [Header("Missile")]
+    [SerializeField] private staticMovement movementScript;
     [SerializeField] public MissileConfig _missileConfig;
+
+    // REMOVED ImpactEffect variable (it inherits it from Entity!)
+
+    // -------------------------------------------------------------------------
+    // Initialization
+    // -------------------------------------------------------------------------
 
     protected override void Awake()
     {
@@ -12,10 +18,15 @@ public class Missiles : Entity
         movementScript = GetComponent<staticMovement>();
     }
 
+    // -------------------------------------------------------------------------
+    // Collision
+    // -------------------------------------------------------------------------
+
     public override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
 
+        Debug.Log($"Missile hit: {collision.gameObject.name} | Tag: {collision.tag}");
         Planet hitPlanet = collision.GetComponent<Planet>();
 
         if (hitPlanet != null)
@@ -23,19 +34,21 @@ public class Missiles : Entity
             if (!hitPlanet.Mirage)
             {
                 Debug.Log("Missile exploded on a solid planet!");
-                Destroy(gameObject);
+                Explode();
             }
-            else
-            {
-                Debug.Log("Missile flew right through a Mirage!");
-                Destroy(hitPlanet.gameObject);
-            }
+            return;
         }
 
-        else if (collision.CompareTag("Enemy"))
+        // Hit an enemy (Pirate, Debris, etc.)
+        Entity hitEntity = collision.GetComponent<Entity>();
+        if (hitEntity != null && !collision.CompareTag("Player"))
         {
-            Debug.Log("Missile hit an enemy!");
-            Destroy(gameObject);
+            int damage = _missileConfig != null
+                ? Mathf.RoundToInt(_missileConfig.Damage)
+                : 1;
+
+            hitEntity.TakeDamage(damage);
+            Explode();
         }
     }
 }

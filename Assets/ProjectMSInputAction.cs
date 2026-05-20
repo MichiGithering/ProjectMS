@@ -166,6 +166,42 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EmerEvac"",
+                    ""type"": ""Button"",
+                    ""id"": ""c0b592cc-8630-44bb-a56f-69244081ffc3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=1)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Thruster"",
+                    ""type"": ""Button"",
+                    ""id"": ""9dfd565a-4bbb-4a1b-b945-b5f662b64364"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Obliterator"",
+                    ""type"": ""Button"",
+                    ""id"": ""3daf3b39-db0d-4d1b-869e-85bbe05cb277"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenMinimap"",
+                    ""type"": ""Button"",
+                    ""id"": ""d6a4b222-3172-4194-ade9-4963226d68f9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -226,6 +262,17 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""90e00e4d-fc92-4530-9753-1c4bc3e93b7c"",
+                    ""path"": ""<Joystick>/stick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""0ab030f0-09ca-4d04-8387-91748d250719"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -243,6 +290,61 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0362cd27-0780-497c-8f77-623ab8a1a1b5"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EmerEvac"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3801e82e-0076-415c-92d4-c14064f0542e"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Thruster"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""65a8e38c-a51d-46b9-a76b-f690d7e7ba2b"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Thruster"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d49a749d-6f40-4cbf-97d6-c1d20aec7f42"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Obliterator"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""603b55fa-e8b3-4916-b947-2805ec626cf4"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenMinimap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -301,6 +403,51 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
                     ""name"": ""Deny"",
                     ""type"": ""Button"",
                     ""id"": ""c9ae9ea0-7e8f-48da-a867-02d6fb58cdad"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UpgradeContext"",
+                    ""type"": ""Button"",
+                    ""id"": ""93b61384-19d5-4834-8bf6-635c96b0584b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseEmerEvac"",
+                    ""type"": ""Button"",
+                    ""id"": ""f2a2a109-89a9-4ff7-9237-980323bb77e8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseThruster"",
+                    ""type"": ""Button"",
+                    ""id"": ""86520051-6c17-4cf9-a3fe-b65af90401ca"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseObliterator"",
+                    ""type"": ""Button"",
+                    ""id"": ""5685632e-2428-4a9b-a6bb-0123a03370c7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ReadDetails"",
+                    ""type"": ""Button"",
+                    ""id"": ""59b23905-5aa3-4f60-a99c-bd059080c098"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -373,6 +520,122 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
                     ""action"": ""Deny"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""024a7c20-1ab6-46cc-ba09-705aae93f09f"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UpgradeContext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""72f3bedf-b874-4c6e-8828-570058e84680"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UpgradeContext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1ccfa098-8c29-44a4-84a2-9284cbe7aeb4"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UpgradeContext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""685fb804-e8ed-4a39-b7ee-571479fd7986"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UpgradeContext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""803f896d-2c07-4168-b015-6cd4d6c9d79b"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseEmerEvac"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""82443f07-7eb6-4980-8833-bfebcf49574d"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseThruster"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e28b5c5f-73d2-4502-baaa-70cdc77fd173"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseObliterator"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""194fb7e1-d32c-40b6-9500-64496054f30f"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ReadDetails"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Joystick"",
+            ""id"": ""93843d23-eff4-4c61-ba11-8311092d0c76"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""e796271a-089b-4fb4-b4d7-aa2a6b9d19b9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""3ff6f70c-25b1-4d41-931d-dc59d06052d0"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -388,6 +651,10 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
         m_PlayerControl_Movement = m_PlayerControl.FindAction("Movement", throwIfNotFound: true);
         m_PlayerControl_LaunchMissile = m_PlayerControl.FindAction("LaunchMissile", throwIfNotFound: true);
         m_PlayerControl_Interaction = m_PlayerControl.FindAction("Interaction", throwIfNotFound: true);
+        m_PlayerControl_EmerEvac = m_PlayerControl.FindAction("EmerEvac", throwIfNotFound: true);
+        m_PlayerControl_Thruster = m_PlayerControl.FindAction("Thruster", throwIfNotFound: true);
+        m_PlayerControl_Obliterator = m_PlayerControl.FindAction("Obliterator", throwIfNotFound: true);
+        m_PlayerControl_OpenMinimap = m_PlayerControl.FindAction("OpenMinimap", throwIfNotFound: true);
         // GameControl
         m_GameControl = asset.FindActionMap("GameControl", throwIfNotFound: true);
         m_GameControl_Pause = m_GameControl.FindAction("Pause", throwIfNotFound: true);
@@ -396,6 +663,14 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
         m_GameControl_MenuCargo = m_GameControl.FindAction("MenuCargo", throwIfNotFound: true);
         m_GameControl_Confirm = m_GameControl.FindAction("Confirm", throwIfNotFound: true);
         m_GameControl_Deny = m_GameControl.FindAction("Deny", throwIfNotFound: true);
+        m_GameControl_UpgradeContext = m_GameControl.FindAction("UpgradeContext", throwIfNotFound: true);
+        m_GameControl_UseEmerEvac = m_GameControl.FindAction("UseEmerEvac", throwIfNotFound: true);
+        m_GameControl_UseThruster = m_GameControl.FindAction("UseThruster", throwIfNotFound: true);
+        m_GameControl_UseObliterator = m_GameControl.FindAction("UseObliterator", throwIfNotFound: true);
+        m_GameControl_ReadDetails = m_GameControl.FindAction("ReadDetails", throwIfNotFound: true);
+        // Joystick
+        m_Joystick = asset.FindActionMap("Joystick", throwIfNotFound: true);
+        m_Joystick_Newaction = m_Joystick.FindAction("New action", throwIfNotFound: true);
     }
 
     ~@ProjectMSInputAction()
@@ -403,6 +678,7 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_TouchControl.enabled, "This will cause a leak and performance issues, ProjectMSInputAction.TouchControl.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_PlayerControl.enabled, "This will cause a leak and performance issues, ProjectMSInputAction.PlayerControl.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_GameControl.enabled, "This will cause a leak and performance issues, ProjectMSInputAction.GameControl.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Joystick.enabled, "This will cause a leak and performance issues, ProjectMSInputAction.Joystick.Disable() has not been called.");
     }
 
     /// <summary>
@@ -588,6 +864,10 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControl_Movement;
     private readonly InputAction m_PlayerControl_LaunchMissile;
     private readonly InputAction m_PlayerControl_Interaction;
+    private readonly InputAction m_PlayerControl_EmerEvac;
+    private readonly InputAction m_PlayerControl_Thruster;
+    private readonly InputAction m_PlayerControl_Obliterator;
+    private readonly InputAction m_PlayerControl_OpenMinimap;
     /// <summary>
     /// Provides access to input actions defined in input action map "PlayerControl".
     /// </summary>
@@ -611,6 +891,22 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "PlayerControl/Interaction".
         /// </summary>
         public InputAction @Interaction => m_Wrapper.m_PlayerControl_Interaction;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerControl/EmerEvac".
+        /// </summary>
+        public InputAction @EmerEvac => m_Wrapper.m_PlayerControl_EmerEvac;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerControl/Thruster".
+        /// </summary>
+        public InputAction @Thruster => m_Wrapper.m_PlayerControl_Thruster;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerControl/Obliterator".
+        /// </summary>
+        public InputAction @Obliterator => m_Wrapper.m_PlayerControl_Obliterator;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerControl/OpenMinimap".
+        /// </summary>
+        public InputAction @OpenMinimap => m_Wrapper.m_PlayerControl_OpenMinimap;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -646,6 +942,18 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
             @Interaction.started += instance.OnInteraction;
             @Interaction.performed += instance.OnInteraction;
             @Interaction.canceled += instance.OnInteraction;
+            @EmerEvac.started += instance.OnEmerEvac;
+            @EmerEvac.performed += instance.OnEmerEvac;
+            @EmerEvac.canceled += instance.OnEmerEvac;
+            @Thruster.started += instance.OnThruster;
+            @Thruster.performed += instance.OnThruster;
+            @Thruster.canceled += instance.OnThruster;
+            @Obliterator.started += instance.OnObliterator;
+            @Obliterator.performed += instance.OnObliterator;
+            @Obliterator.canceled += instance.OnObliterator;
+            @OpenMinimap.started += instance.OnOpenMinimap;
+            @OpenMinimap.performed += instance.OnOpenMinimap;
+            @OpenMinimap.canceled += instance.OnOpenMinimap;
         }
 
         /// <summary>
@@ -666,6 +974,18 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
             @Interaction.started -= instance.OnInteraction;
             @Interaction.performed -= instance.OnInteraction;
             @Interaction.canceled -= instance.OnInteraction;
+            @EmerEvac.started -= instance.OnEmerEvac;
+            @EmerEvac.performed -= instance.OnEmerEvac;
+            @EmerEvac.canceled -= instance.OnEmerEvac;
+            @Thruster.started -= instance.OnThruster;
+            @Thruster.performed -= instance.OnThruster;
+            @Thruster.canceled -= instance.OnThruster;
+            @Obliterator.started -= instance.OnObliterator;
+            @Obliterator.performed -= instance.OnObliterator;
+            @Obliterator.canceled -= instance.OnObliterator;
+            @OpenMinimap.started -= instance.OnOpenMinimap;
+            @OpenMinimap.performed -= instance.OnOpenMinimap;
+            @OpenMinimap.canceled -= instance.OnOpenMinimap;
         }
 
         /// <summary>
@@ -709,6 +1029,11 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_GameControl_MenuCargo;
     private readonly InputAction m_GameControl_Confirm;
     private readonly InputAction m_GameControl_Deny;
+    private readonly InputAction m_GameControl_UpgradeContext;
+    private readonly InputAction m_GameControl_UseEmerEvac;
+    private readonly InputAction m_GameControl_UseThruster;
+    private readonly InputAction m_GameControl_UseObliterator;
+    private readonly InputAction m_GameControl_ReadDetails;
     /// <summary>
     /// Provides access to input actions defined in input action map "GameControl".
     /// </summary>
@@ -744,6 +1069,26 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "GameControl/Deny".
         /// </summary>
         public InputAction @Deny => m_Wrapper.m_GameControl_Deny;
+        /// <summary>
+        /// Provides access to the underlying input action "GameControl/UpgradeContext".
+        /// </summary>
+        public InputAction @UpgradeContext => m_Wrapper.m_GameControl_UpgradeContext;
+        /// <summary>
+        /// Provides access to the underlying input action "GameControl/UseEmerEvac".
+        /// </summary>
+        public InputAction @UseEmerEvac => m_Wrapper.m_GameControl_UseEmerEvac;
+        /// <summary>
+        /// Provides access to the underlying input action "GameControl/UseThruster".
+        /// </summary>
+        public InputAction @UseThruster => m_Wrapper.m_GameControl_UseThruster;
+        /// <summary>
+        /// Provides access to the underlying input action "GameControl/UseObliterator".
+        /// </summary>
+        public InputAction @UseObliterator => m_Wrapper.m_GameControl_UseObliterator;
+        /// <summary>
+        /// Provides access to the underlying input action "GameControl/ReadDetails".
+        /// </summary>
+        public InputAction @ReadDetails => m_Wrapper.m_GameControl_ReadDetails;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -788,6 +1133,21 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
             @Deny.started += instance.OnDeny;
             @Deny.performed += instance.OnDeny;
             @Deny.canceled += instance.OnDeny;
+            @UpgradeContext.started += instance.OnUpgradeContext;
+            @UpgradeContext.performed += instance.OnUpgradeContext;
+            @UpgradeContext.canceled += instance.OnUpgradeContext;
+            @UseEmerEvac.started += instance.OnUseEmerEvac;
+            @UseEmerEvac.performed += instance.OnUseEmerEvac;
+            @UseEmerEvac.canceled += instance.OnUseEmerEvac;
+            @UseThruster.started += instance.OnUseThruster;
+            @UseThruster.performed += instance.OnUseThruster;
+            @UseThruster.canceled += instance.OnUseThruster;
+            @UseObliterator.started += instance.OnUseObliterator;
+            @UseObliterator.performed += instance.OnUseObliterator;
+            @UseObliterator.canceled += instance.OnUseObliterator;
+            @ReadDetails.started += instance.OnReadDetails;
+            @ReadDetails.performed += instance.OnReadDetails;
+            @ReadDetails.canceled += instance.OnReadDetails;
         }
 
         /// <summary>
@@ -817,6 +1177,21 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
             @Deny.started -= instance.OnDeny;
             @Deny.performed -= instance.OnDeny;
             @Deny.canceled -= instance.OnDeny;
+            @UpgradeContext.started -= instance.OnUpgradeContext;
+            @UpgradeContext.performed -= instance.OnUpgradeContext;
+            @UpgradeContext.canceled -= instance.OnUpgradeContext;
+            @UseEmerEvac.started -= instance.OnUseEmerEvac;
+            @UseEmerEvac.performed -= instance.OnUseEmerEvac;
+            @UseEmerEvac.canceled -= instance.OnUseEmerEvac;
+            @UseThruster.started -= instance.OnUseThruster;
+            @UseThruster.performed -= instance.OnUseThruster;
+            @UseThruster.canceled -= instance.OnUseThruster;
+            @UseObliterator.started -= instance.OnUseObliterator;
+            @UseObliterator.performed -= instance.OnUseObliterator;
+            @UseObliterator.canceled -= instance.OnUseObliterator;
+            @ReadDetails.started -= instance.OnReadDetails;
+            @ReadDetails.performed -= instance.OnReadDetails;
+            @ReadDetails.canceled -= instance.OnReadDetails;
         }
 
         /// <summary>
@@ -850,6 +1225,102 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="GameControlActions" /> instance referencing this action map.
     /// </summary>
     public GameControlActions @GameControl => new GameControlActions(this);
+
+    // Joystick
+    private readonly InputActionMap m_Joystick;
+    private List<IJoystickActions> m_JoystickActionsCallbackInterfaces = new List<IJoystickActions>();
+    private readonly InputAction m_Joystick_Newaction;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Joystick".
+    /// </summary>
+    public struct JoystickActions
+    {
+        private @ProjectMSInputAction m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public JoystickActions(@ProjectMSInputAction wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Joystick/Newaction".
+        /// </summary>
+        public InputAction @Newaction => m_Wrapper.m_Joystick_Newaction;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Joystick; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="JoystickActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(JoystickActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="JoystickActions" />
+        public void AddCallbacks(IJoystickActions instance)
+        {
+            if (instance == null || m_Wrapper.m_JoystickActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_JoystickActionsCallbackInterfaces.Add(instance);
+            @Newaction.started += instance.OnNewaction;
+            @Newaction.performed += instance.OnNewaction;
+            @Newaction.canceled += instance.OnNewaction;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="JoystickActions" />
+        private void UnregisterCallbacks(IJoystickActions instance)
+        {
+            @Newaction.started -= instance.OnNewaction;
+            @Newaction.performed -= instance.OnNewaction;
+            @Newaction.canceled -= instance.OnNewaction;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="JoystickActions.UnregisterCallbacks(IJoystickActions)" />.
+        /// </summary>
+        /// <seealso cref="JoystickActions.UnregisterCallbacks(IJoystickActions)" />
+        public void RemoveCallbacks(IJoystickActions instance)
+        {
+            if (m_Wrapper.m_JoystickActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="JoystickActions.AddCallbacks(IJoystickActions)" />
+        /// <seealso cref="JoystickActions.RemoveCallbacks(IJoystickActions)" />
+        /// <seealso cref="JoystickActions.UnregisterCallbacks(IJoystickActions)" />
+        public void SetCallbacks(IJoystickActions instance)
+        {
+            foreach (var item in m_Wrapper.m_JoystickActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_JoystickActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="JoystickActions" /> instance referencing this action map.
+    /// </summary>
+    public JoystickActions @Joystick => new JoystickActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "TouchControl" which allows adding and removing callbacks.
     /// </summary>
@@ -900,6 +1371,34 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteraction(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "EmerEvac" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEmerEvac(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Thruster" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnThruster(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Obliterator" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnObliterator(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "OpenMinimap" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOpenMinimap(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "GameControl" which allows adding and removing callbacks.
@@ -950,5 +1449,55 @@ public partial class @ProjectMSInputAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDeny(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "UpgradeContext" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnUpgradeContext(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "UseEmerEvac" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnUseEmerEvac(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "UseThruster" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnUseThruster(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "UseObliterator" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnUseObliterator(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ReadDetails" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnReadDetails(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Joystick" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="JoystickActions.AddCallbacks(IJoystickActions)" />
+    /// <seealso cref="JoystickActions.RemoveCallbacks(IJoystickActions)" />
+    public interface IJoystickActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "New action" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }

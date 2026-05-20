@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public float MaxFuel;
     public int Missiles;
     public int MaxMissiles;
+    public int Hp;
+    public int MaxHp;
 
     [Header("Player Stats")]
     public float ExpandTime { get; set; }
@@ -18,6 +20,11 @@ public class GameManager : MonoBehaviour
     public int StartPositionX;
     public int StartPositionY;
     public float minimumReturnFuel;
+
+    [Header("Player Item")]
+    public bool HasEmerEvac;
+    public bool HasThruster;
+    public bool HasObliterator;
 
     [Header("Game Stats")]
     public int ResearchPoints = 0;
@@ -27,7 +34,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     private float secondTimer = 0f;
-    private bool hasGivenFuelWarning = false;
+    public bool hasGivenFuelWarning = false;
 
     private void Awake()
     {
@@ -38,6 +45,24 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void UseItemFromCargo(int itemIndex)
+    {
+        switch (itemIndex)
+        {
+            case 0:
+                HasEmerEvac = true;
+                break;
+            case 1:
+                HasThruster = true;
+                break;
+            case 2:
+                HasObliterator = true;
+                break;
+            default:
+                break;
+        }
     }
 
     private void Start()
@@ -73,12 +98,13 @@ public class GameManager : MonoBehaviour
     public void ResetForNewRun()
     {
         currentState = GameState.Playing;
-        Time.timeScale = 1f;          // ? THIS is why player was frozen!
+        Time.timeScale = 1f;
         ExpandTime = 0f;
         TravelDistance = 0f;
         minimumReturnFuel = 0f;
         hasGivenFuelWarning = false;
         ResearchPoints = 0;
+        secondTimer = 0f;
         CargoBag.Clear();
         player = null;
     }
@@ -106,21 +132,17 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         currentState = GameState.Paused;
-        Time.timeScale = 0f; // Freezes Unity's physics and time
+        Time.timeScale = 0f;
         Debug.Log("Game Paused!");
-
-        // UI Manager to show the Pause Menu
     }
 
     public void ResumeGame()
     {
         currentState = GameState.Playing;
-        Time.timeScale = 1f; // Unfreezes Unity
+        Time.timeScale = 1f;
         Debug.Log("Game Resumed!");
-
-        // UI Manager to hide the Pause Menu
     }
-    
+
     public void SetPlayer(Player newlySpawnedPlayer)
     {
         player = newlySpawnedPlayer;
@@ -131,6 +153,15 @@ public class GameManager : MonoBehaviour
         TravelDistance = 0f;
         minimumReturnFuel = 0f;
         ExpandTime = 0f;
+
+        // FIX: Instantly copy the player's initial baseline values right away
+        // to prevent any 1-frame UI structural flickering during initialization loading.
+        Fuel = player.Fuel;
+        MaxFuel = player.MaxFuel;
+        Missiles = player.Missiles;
+        MaxMissiles = player.MaxMissiles;
+        Hp = player.CurrentHP;
+        MaxHp = player.MaxHP;
     }
 
     private void PlayerStatsUpdate()
@@ -154,17 +185,20 @@ public class GameManager : MonoBehaviour
             hasGivenFuelWarning = true;
         }
 
-        if (Fuel <= 0)
+        // FIX: Only trigger a fuel-based defeat state if the ship's armor is still intact (Hp > 0)!
+        // This allows the ship's structural explosion time frame to finish unhindered.
+        if (Fuel <= 0 && Hp > 0)
         {
-            GameOver(1); // Ran out of fuel
+            GameOver(1);
         }
     }
+
     public void AddResearchPoints(int amount)
     {
         int AddedPoints = amount + Mathf.RoundToInt((ExpandTime / 10f) + (TravelDistance / 50f));
         ResearchPoints += AddedPoints;
     }
-    // Game over: 0 = evacuate, 1 = ran out of fuel, 2 = hit an obstacle, 3 = other
+
     public void GameOver(int context)
     {
         currentState = GameState.GameOver;
@@ -173,21 +207,16 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("You successfully evacuated! Congratulations!");
 
-
             if (SaveScoreManager.Instance != null)
             {
                 SaveScoreManager.Instance.SaveRun(TravelDistance, ResearchPoints, CargoBag);
             }
-
-
         }
         else
         {
-
             if (context == 1)
             {
                 Debug.Log("You ran out of fuel and couldn't return to the station. Better luck next time!");
-
             }
             else if (context == 2)
             {
@@ -204,16 +233,25 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        SceneManager.LoadScene("MainMenuScene");
+        if (SceneTransition.Instance != null)
+        {
+            SceneTransition.Instance.TransitionToScene("MainMenuScene");
+        }
+        else
+        {
+            SceneManager.LoadScene("MainMenuScene");
+        }
+
+        HasEmerEvac = false;
+        HasThruster = false;
+        HasObliterator = false;
     }
 
     [Header("Run Inventory")]
     public List<SaveScoreManager.InventoryItem> CargoBag = new List<SaveScoreManager.InventoryItem>();
 
-    // Call this when the player investigates and successfully collects loot. It will add the loot to the Cargo Bag, stacking it if it's already there.
     public void CollectLoot(string lootName, int quantity)
     {
-        // Check if it's already in the bag to stack it
         SaveScoreManager.InventoryItem existingLoot = CargoBag.Find(item => item.ItemName == lootName);
 
         if (existingLoot != null)

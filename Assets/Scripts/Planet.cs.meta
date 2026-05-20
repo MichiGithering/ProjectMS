@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: 6e0ec298259867445a38de0470497818
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _rewardConfig: {instanceID: 0}
+  - minimapIconSprite: {fileID: -372395067520658631, guid: ba645dd6f4a91b341b60768e5ce42d04, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

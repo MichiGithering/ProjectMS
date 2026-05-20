@@ -9,8 +9,11 @@ public class Spaceship : Entity
     public float MaxFuel;
     public int Missiles;
     public int MaxMissiles;
+    public float FuelConsumptionRate = 1f;
     [SerializeField] public GameObject missilePrefab;
+    [SerializeField] public ParticleSystem thrusterPrefab;
 
+    protected ParticleSystem activeThruster;
     protected override void Awake()
     {
         base.Awake();
@@ -24,6 +27,15 @@ public class Spaceship : Entity
     public override void Start()
     {
         base.Start();
+
+        if (thrusterPrefab != null && activeThruster == null)
+        {
+            activeThruster = Instantiate(thrusterPrefab, transform);
+
+            activeThruster.transform.localPosition = new Vector3(0, -1f, 0);
+
+            activeThruster.transform.localRotation = Quaternion.Euler(90f, 0, 0);
+        }
     }
     public override void OnTriggerEnter2D(Collider2D collision)
     {
@@ -54,8 +66,14 @@ public class Spaceship : Entity
     
     public virtual void FixedUpdate()
     {
-        if(Fuel > 0)
-            Fuel -= Time.deltaTime;
+        if (Fuel > 0)
+        {
+            Fuel -= Time.deltaTime * FuelConsumptionRate;
+        }
+        else if (Fuel <= 0 && activeThruster != null)
+        {
+            activeThruster.Stop();
+        }
     }
 }
 

@@ -3,13 +3,35 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class EvacuationPoint : InteractableObject
 {
-    private bool        CanEvac = true;
+
+    private Rigidbody2D rb;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        rb = GetComponent<Rigidbody2D>();
+        if (rb == null)
+        {
+            rb = gameObject.AddComponent<Rigidbody2D>();
+        }
+
+        rb.rotation = Random.Range(0f, 360f);
+
+        float spinSpeed = Random.Range(1f, 8f);
+        float direction = Random.value > 0.5f ? 1f : -1f;
+
+        rb.angularVelocity = spinSpeed * direction;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Player entered the Evacuation Point trigger area.");
             SetInteractable(true);
+
+            if (UIManager.Instance != null)
+            {
+                UIManager.Instance.EnterEvacZone();
+            }
         }
     }
 
@@ -17,8 +39,12 @@ public class EvacuationPoint : InteractableObject
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Player exited the Evacuation Point trigger area.");
             SetInteractable(false);
+
+            if (UIManager.Instance != null)
+            {
+                UIManager.Instance.ExitEvacZone();
+            }
         }
     }
     protected override void InteractionActive()

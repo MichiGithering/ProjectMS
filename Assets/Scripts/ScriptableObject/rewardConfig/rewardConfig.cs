@@ -12,7 +12,10 @@ public class RewardConfig : ScriptableObject
     [Header("Configuration")]
     public float ReFuel;
     public int ReMissile;
-    public int RewardPoints;
+    public int RewardPoints; 
+    
+    [Range(0f, 1f)]
+    public float chanceToBlank = 0.1f;
 
 
 }
