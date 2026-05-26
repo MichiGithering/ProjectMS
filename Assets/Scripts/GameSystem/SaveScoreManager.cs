@@ -31,7 +31,16 @@ public class SaveScoreManager : MonoBehaviour
         public float LongestDistanceTraveled;
     }
 
-    private string saveFilePath;
+    private string _saveFilePath;
+    private string saveFilePath
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(_saveFilePath))
+                _saveFilePath = Application.persistentDataPath + "/playerProfile.json";
+            return _saveFilePath;
+        }
+    }
 
     private void Awake()
     {
@@ -43,7 +52,6 @@ public class SaveScoreManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-    saveFilePath = Application.persistentDataPath + "/playerProfile.json";
     }
 
     public void AddItemToInventory(string nameOfItem, int amountToAdd)
@@ -119,19 +127,53 @@ public class SaveScoreManager : MonoBehaviour
     }
     private void SaveProfile(PlayerProfileData profile)
     {
-        string jsonString = JsonUtility.ToJson(profile, true);
-        File.WriteAllText(saveFilePath, jsonString);
+        try
+        {
+            string jsonString = JsonUtility.ToJson(profile, true);
+            string path = saveFilePath;
+
+            // Ensure directory exists — critical on Android
+            string directory = Path.GetDirectoryName(path);
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            File.WriteAllText(path, jsonString);
+            Debug.Log($"[Save] Saved to: {path}");
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"[Save] FAILED to save: {e.Message}");
+        }
     }
 
     public PlayerProfileData LoadGame()
     {
-        if (File.Exists(saveFilePath))
+        try
         {
-            string jsonString = File.ReadAllText(saveFilePath);
-            return JsonUtility.FromJson<PlayerProfileData>(jsonString);
+            string path = saveFilePath;
+            Debug.Log($"[Save] Loading from: {path}");
+
+            if (File.Exists(path))
+            {
+                string jsonString = File.ReadAllText(path);
+                PlayerProfileData data = JsonUtility.FromJson<PlayerProfileData>(jsonString);
+
+                if (data == null)
+                {
+                    Debug.LogWarning("[Save] JSON parsed but returned null — returning fresh profile.");
+                    return new PlayerProfileData();
+                }
+                return data;
+            }
+            else
+            {
+                Debug.Log("[Save] No save file found — returning fresh profile.");
+                return new PlayerProfileData();
+            }
         }
-        else
+        catch (System.Exception e)
         {
+            Debug.LogError($"[Save] FAILED to load: {e.Message}");
             return new PlayerProfileData();
         }
     }

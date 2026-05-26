@@ -172,7 +172,6 @@ public class UpgradeAncInventoryManager : MonoBehaviour
         float targetAlpha = isUpgradeOpen ? 1f : 0f;
         SafeStartFade(ref upgradeFadeRoutine, UpgradeCanvas, targetAlpha);
 
-        CheckDetailsVisibility();
     }
 
     private void ToggleCargo()
@@ -190,7 +189,6 @@ public class UpgradeAncInventoryManager : MonoBehaviour
         float targetAlpha = isCargoOpen ? 1f : 0f;
         SafeStartFade(ref cargoFadeRoutine, CargoCanvas, targetAlpha);
 
-        CheckDetailsVisibility();
     }
 
     private void ToggleDetails()

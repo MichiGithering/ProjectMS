@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
     public int StartPositionX;
     public int StartPositionY;
     public float minimumReturnFuel;
+    private bool isFuelOutRoutineRunning = false;
 
     [Header("Player Item")]
     public bool HasEmerEvac;
@@ -28,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Stats")]
     public int ResearchPoints = 0;
+    public int EndContext = 3;
     public enum GameState { Playing, Paused, GameOver }
     public GameState currentState = GameState.Playing;
 
@@ -181,16 +184,21 @@ public class GameManager : MonoBehaviour
 
         if (Fuel < minimumReturnFuel && !hasGivenFuelWarning)
         {
-            Debug.Log("Warning: Fuel is below the minimum required to return!");
             hasGivenFuelWarning = true;
         }
 
-        // FIX: Only trigger a fuel-based defeat state if the ship's armor is still intact (Hp > 0)!
-        // This allows the ship's structural explosion time frame to finish unhindered.
-        if (Fuel <= 0 && Hp > 0)
+        if (Fuel <= 0 && Hp > 0 && !isFuelOutRoutineRunning)
         {
-            GameOver(1);
+            isFuelOutRoutineRunning = true;
+            StartCoroutine(FuelOutCoroutine());
         }
+    }
+    private IEnumerator FuelOutCoroutine()
+    {
+
+        yield return new WaitForSeconds(3f);
+
+        GameOver(1);
     }
 
     public void AddResearchPoints(int amount)
@@ -202,49 +210,28 @@ public class GameManager : MonoBehaviour
     public void GameOver(int context)
     {
         currentState = GameState.GameOver;
+        EndContext = context;
 
         if (context == 0)
         {
-            Debug.Log("You successfully evacuated! Congratulations!");
-
             if (SaveScoreManager.Instance != null)
-            {
                 SaveScoreManager.Instance.SaveRun(TravelDistance, ResearchPoints, CargoBag);
-            }
         }
         else
         {
-            if (context == 1)
-            {
-                Debug.Log("You ran out of fuel and couldn't return to the station. Better luck next time!");
-            }
-            else if (context == 2)
-            {
-                Debug.Log("You hit an obstacle and your ship was destroyed. Be more careful next time!");
-            }
-            else
-            {
-                Debug.Log("Your ship was lost due to unforeseen circumstances. Try again!");
-            }
-
             if (SaveScoreManager.Instance != null)
-            {
                 SaveScoreManager.Instance.SaveRun(TravelDistance, 0, null);
-            }
-        }
-
-        if (SceneTransition.Instance != null)
-        {
-            SceneTransition.Instance.TransitionToScene("MainMenuScene");
-        }
-        else
-        {
-            SceneManager.LoadScene("MainMenuScene");
         }
 
         HasEmerEvac = false;
         HasThruster = false;
         HasObliterator = false;
+
+        // Just go to conclusion — no ad here
+        if (SceneTransition.Instance != null)
+            SceneTransition.Instance.TransitionToScene("ConclusionScene");
+        else
+            SceneManager.LoadScene("ConclusionScene");
     }
 
     [Header("Run Inventory")]

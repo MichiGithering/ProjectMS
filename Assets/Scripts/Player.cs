@@ -174,12 +174,10 @@ public class Player : Spaceship
         if (GameManager.Instance.currentState != GameManager.GameState.Playing)
             return;
 
-        Debug.Log("Player is launching a missile!");
         base.LaunchMissile();
     }
     private void ApplyUpgrades()
     {
-        Debug.Log("Applying player upgrades...");
 
         if (UpgradeManager.Instance == null)
             return;

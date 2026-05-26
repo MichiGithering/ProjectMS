@@ -8216,7 +8216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d677f1681015749b15c436eec6d880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.OnScreen.OnScreenStick
-  m_MovementRange: 85
+  m_MovementRange: 130
   m_DynamicOriginRange: 100
   m_ControlPath: <Joystick>/stick
   m_Behaviour: 0
@@ -8430,6 +8430,66 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!1 &1732750514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1732750517}
+  - component: {fileID: 1732750516}
+  - component: {fileID: 1732750515}
+  m_Layer: 0
+  m_Name: Ads
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1732750515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732750514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7dbdf92e63778c4cb6656525c3ef1b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IntersitialAds
+  adChance: 0
+--- !u!114 &1732750516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732750514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957ee011ded7d3b42b809fc2849262a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BannerAds
+  showBannerAds: 0
+  AdsPosition: 0
+--- !u!4 &1732750517
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732750514}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 530.7084, y: 334.69586, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1782214274
 GameObject:
   m_ObjectHideFlags: 0
@@ -8606,7 +8666,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1829954516}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1829954521
 Camera:
   m_ObjectHideFlags: 0
@@ -9098,3 +9158,4 @@ SceneRoots:
   - {fileID: 533191954}
   - {fileID: 217220628}
   - {fileID: 860756037}
+  - {fileID: 1732750517}

@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+
 public class UIManager : MonoBehaviour
 {
     [SerializeField] public Image missileButton;
@@ -19,25 +19,27 @@ public class UIManager : MonoBehaviour
         }
         Instance = this;
 
-        if (missileButton == null)
+        if (missileButton == null) Debug.LogError("Missile Button Image is not assigned.");
+        if (evacButton == null) Debug.LogError("Evac Button Image is not assigned.");
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
         {
-            Debug.LogError("Missile Button Image is not assigned in the inspector.");
-        }
-        if (evacButton == null)
-        {
-            Debug.LogError("Evac Button Image is not assigned in the inspector.");
+            Instance = null;
         }
     }
 
     private void Start()
     {
-        missileButton.gameObject.SetActive(true);
-        evacButton.gameObject.SetActive(false);
+        if (missileButton != null) missileButton.gameObject.SetActive(true);
+        if (evacButton != null) evacButton.gameObject.SetActive(false);
     }
 
     public void EnterEvacZone()
     {
-        if (GameManager.Instance != null)
+        if (GameManager.Instance != null && missileButton != null && evacButton != null)
         {
             missileButton.gameObject.SetActive(false);
             evacButton.gameObject.SetActive(true);
@@ -46,7 +48,7 @@ public class UIManager : MonoBehaviour
 
     public void ExitEvacZone()
     {
-        if (GameManager.Instance != null)
+        if (GameManager.Instance != null && missileButton != null && evacButton != null)
         {
             missileButton.gameObject.SetActive(true);
             evacButton.gameObject.SetActive(false);
@@ -55,6 +57,9 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        if (missileButton == null || evacButton == null || missileCountText == null)
+            return;
+
         if (GameManager.Instance != null)
         {
             // --- MISSILE LOGIC ---
@@ -62,13 +67,11 @@ public class UIManager : MonoBehaviour
             {
                 missileCountText.gameObject.SetActive(true);
                 missileCountText.text = GameManager.Instance.Missiles.ToString();
-
                 missileButton.color = Color.white;
             }
             else
             {
                 missileCountText.gameObject.SetActive(false);
-
                 missileButton.color = Color.red;
             }
 

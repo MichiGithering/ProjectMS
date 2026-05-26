@@ -51,10 +51,8 @@ public class EvacuationPoint : InteractableObject
     {
         if(GameManager.Instance.minimumReturnFuel > GameManager.Instance.Fuel)
         {
-            Debug.Log("Not enough fuel to evacuate! Minimum return fuel required: " + GameManager.Instance.minimumReturnFuel);
             return;
-        }
-        Debug.Log("Player reached the Evacuation Point! Evacuation sequence triggered!");
+        };
 
         GameManager.Instance.GameOver(0); // Evacuation
     }
