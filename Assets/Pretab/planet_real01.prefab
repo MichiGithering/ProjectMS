@@ -191,7 +191,7 @@ MonoBehaviour:
     weight: 20
   - itemName: Blank
     weight: 30
-  minDrops: 1
-  maxDrops: 3
+  minDrops: 3
+  maxDrops: 5
   minQuantity: 1
   maxQuantity: 3

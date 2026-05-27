@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6894138546075773986}
   - component: {fileID: 4385536264485240893}
   - component: {fileID: 8174539274437713423}
+  - component: {fileID: -2070449556368929253}
   m_Layer: 7
   m_Name: planet_real03
   m_TagString: Planet
@@ -169,3 +170,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99c13dbd67108d4f9d556e35a9c94fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InvestigatePlanet
+--- !u!114 &-2070449556368929253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922282646468557705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b70b8cb3b6d71804d96a4a35d9c47f7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LootChest
+  lootTable:
+  - itemName: 0_EmerEvac
+    weight: 30
+  - itemName: 1_Thruster
+    weight: 50
+  - itemName: 2_Obliterator
+    weight: 20
+  - itemName: Blank
+    weight: 30
+  minDrops: 1
+  maxDrops: 2
+  minQuantity: 0
+  maxQuantity: 2

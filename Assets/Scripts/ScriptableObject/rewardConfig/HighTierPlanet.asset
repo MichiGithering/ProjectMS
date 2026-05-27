@@ -15,7 +15,7 @@ MonoBehaviour:
   itemIcon: {fileID: 0}
   Name: 
   Description: 
-  ReFuel: 13
-  ReMissile: 1
-  RewardPoints: 10
+  ReFuel: 50
+  ReMissile: 3
+  RewardPoints: 20
   chanceToBlank: 0.1

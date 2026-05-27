@@ -124,7 +124,7 @@ public class UpgradeAncInventoryManager : MonoBehaviour
             foreach (var item in profile.SavedItems)
             {
                 if (item.ItemName == "0_EmerEvac") evacCount = item.Quantity;
-                else if (item.ItemName == "1_Booster") boosterCount = item.Quantity;
+                else if (item.ItemName == "1_Thruster") boosterCount = item.Quantity;
                 else if (item.ItemName == "2_Obliterator") obliteratorCount = item.Quantity;
             }
         }

@@ -115,9 +115,25 @@ public class ConclusionLoop : MonoBehaviour
                     string itemsString = "";
                     foreach (var item in GameManager.Instance.CargoBag)
                     {
-                        itemsString += $"{item.Quantity}x {item.ItemName}\n";
+                        if (item.Quantity >= 1)
+                        {
+                            switch (item.ItemName)
+                            {
+                                case "0_EmerEvac":
+                                    itemsString += $"{item.Quantity}x {item.ItemName} Emergency Evacuator\n";
+                                    break;
+                                case "1_Thruster":
+                                    itemsString += $"{item.Quantity}x {item.ItemName} Thruster's Booster\n";
+                                    break;
+                                case "2_Obliterator":
+                                    itemsString += $"{item.Quantity}x {item.ItemName} Mirage Obliterator\n";
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        itemGetList.text = itemsString;
                     }
-                    itemGetList.text = itemsString;
                 }
             }
         }

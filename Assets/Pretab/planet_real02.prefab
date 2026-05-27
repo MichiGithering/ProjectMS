@@ -191,7 +191,7 @@ MonoBehaviour:
     weight: 10
   - itemName: Blank
     weight: 50
-  minDrops: 0
+  minDrops: 2
   maxDrops: 3
-  minQuantity: 0
-  maxQuantity: 1
+  minQuantity: 1
+  maxQuantity: 3

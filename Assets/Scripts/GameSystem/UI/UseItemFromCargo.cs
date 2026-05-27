@@ -5,7 +5,7 @@ public class UseItemFromCargo : MonoBehaviour
 {
 
     [SerializeField] private Image itemIcon;
-    public bool allowToggle = false;
+    public bool allowToggle = true;
     private Image buttonImage;
     private bool isUsed = false;
 
